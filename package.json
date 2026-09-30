@@ -1,0 +1,27 @@
+{
+  "name": "development_platforms_course_assignment_rest_api",
+  "version": "1.0.0",
+  "description": "REST API built with Express, TypeScript and MySQL. Features JWT authentication and article management.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priscilla-cassandra/development_platforms_course_assignment_REST_API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/priscilla-cassandra/development_platforms_course_assignment_REST_API/issues"
+  },
+  "homepage": "https://github.com/priscilla-cassandra/development_platforms_course_assignment_REST_API#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.5"
+  }
+}
