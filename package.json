@@ -5,7 +5,9 @@
   "description": "REST API built with Express, TypeScript and MySQL. Features JWT authentication and article management.",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.ts"
   },
   "repository": {
     "type": "git",
