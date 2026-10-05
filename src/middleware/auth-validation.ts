@@ -16,4 +16,14 @@ export function validateRegistration(
   req: Request,
   res: Response,
   next: NextFunction,
-) {}
+) {
+  const result = registerSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: result.error.issues.map((issue) => issue.message),
+    });
+  }
+  next();
+}
