@@ -13,3 +13,8 @@ export interface Article {
   submitted_by: string;
   created_at: string;
 }
+
+export interface UserResponse {
+  id: number;
+  email: string;
+}
