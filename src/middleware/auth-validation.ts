@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 //REGISTRATION SCHEMA
 export const registerSchema = z.object({
-  email: z.email('Email must be a valid email adress'),
+  email: z.email('Email must be a valid email address'),
   password: z
     .string()
     .regex(
