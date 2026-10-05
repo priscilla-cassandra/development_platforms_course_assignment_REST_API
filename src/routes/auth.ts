@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import { pool } from '../database';
-import type { User } from '../interfaces';
 import bcrypt from 'bcrypt';
 import type { ResultSetHeader } from 'mysql2';
-import type { UserResponse } from '../interfaces';
+import type { UserResponse, User } from '../interfaces';
+import { validateRegistration } from '../middleware/auth-validation';
 
 const router = Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', validateRegistration, async (req, res) => {
   try {
-    const { email, password_hash } = req.body;
+    const { email, password } = req.body;
 
     const [rows] = await pool.execute(`SELECT id FROM users WHERE email = ?`, [
       email,
@@ -26,11 +26,11 @@ router.post('/register', async (req, res) => {
 
     //Hash the password
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password_hash, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    //Create user in database
+    //Create user in database (with the hashed password)
     const [result]: [ResultSetHeader, any] = await pool.execute(
-      'INSTERT INTO users (email, password_hash) VALUES(?, ?)',
+      'INSERT INTO users (email, password_hash) VALUES(?, ?)',
       [email, hashedPassword],
     );
 
