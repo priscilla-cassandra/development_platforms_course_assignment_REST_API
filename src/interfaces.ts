@@ -10,8 +10,8 @@ export interface Article {
   title: string;
   body: string;
   category: string;
-  submitted_by: string;
-  created_at: string;
+  submitted_by: number;
+  created_at?: string;
 }
 
 export interface ArticleWithUser extends Article {
