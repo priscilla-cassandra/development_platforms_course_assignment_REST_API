@@ -61,7 +61,7 @@ router.post('/login', validateLogin, async (req, res) => {
     const { email, password } = req.body;
 
     const [rows] = await pool.execute(
-      'SELECT id, email, password FROM users WHERE email =?',
+      'SELECT id, email, password_hash FROM users WHERE email =?',
       [email],
     );
 
@@ -82,11 +82,11 @@ router.post('/login', validateLogin, async (req, res) => {
       return;
     }
 
-    const validPassword = await bcrypt.compare(password, user.password!);
+    const validPassword = await bcrypt.compare(password, user.password_hash!);
 
     if (!validPassword) {
       return res.status(401).json({
-        error: 'Invalid password',
+        error: 'Invalid email or password',
       });
     }
 
