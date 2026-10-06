@@ -3,7 +3,11 @@ import { pool } from '../database';
 import bcrypt from 'bcrypt';
 import type { ResultSetHeader } from 'mysql2';
 import type { UserResponse, User } from '../interfaces';
-import { validateRegistration } from '../middleware/auth-validation';
+import {
+  validateRegistration,
+  validateLogin,
+} from '../middleware/auth-validation';
+import { verifyToken, generateToken } from '../utils/jwt';
 
 const router = Router();
 
@@ -48,6 +52,60 @@ router.post('/register', validateRegistration, async (req, res) => {
     console.error('Registration error', error);
     res.status(500).json({
       error: 'Failed to register user',
+    });
+  }
+});
+
+router.post('/login', validateLogin, async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const [rows] = await pool.execute(
+      'SELECT id, email, password FROM users WHERE email =?',
+      [email],
+    );
+
+    const users = rows as User[];
+
+    if (users.length === 0) {
+      return res.status(401).json({
+        error: 'Invalid email or password',
+      });
+    }
+
+    const user = users[0];
+
+    if (!user) {
+      res.status(401).json({
+        error: 'Invalid email or password',
+      });
+      return;
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password!);
+
+    if (!validPassword) {
+      return res.status(401).json({
+        error: 'Invalid password',
+      });
+    }
+
+    const token = generateToken(user.id);
+
+    const userResponse: UserResponse = {
+      id: user.id,
+      email: user.email,
+    };
+
+    res.json({
+      message: 'Login successful',
+      user: userResponse,
+      token,
+    });
+  } catch (error) {
+    console.error('Login error', error);
+    res.status(500).json({
+      error: 'Failed to log in',
     });
   }
 });
