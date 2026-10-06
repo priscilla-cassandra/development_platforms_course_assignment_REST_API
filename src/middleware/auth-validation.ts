@@ -12,6 +12,13 @@ export const registerSchema = z.object({
     ),
 });
 
+//LOGIN SCHEMA
+export const loginSchema = z.object({
+  email: z.email('Email must be a valid email'),
+  password: z.string(),
+});
+
+//Register validation middleware
 export function validateRegistration(
   req: Request,
   res: Response,
@@ -25,5 +32,19 @@ export function validateRegistration(
       details: result.error.issues.map((issue) => issue.message),
     });
   }
+  next();
+}
+
+//Login validation middleware
+export function validateLogin(req: Request, res: Response, next: NextFunction) {
+  const result = loginSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: result.error.issues.map((issue) => issue.message),
+    });
+  }
+
   next();
 }
