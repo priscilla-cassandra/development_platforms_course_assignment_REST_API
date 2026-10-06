@@ -1,7 +1,7 @@
 export interface User {
   id: number;
   email: string;
-  password: string;
+  password_hash?: string;
   created_at: string;
 }
 
@@ -12,6 +12,11 @@ export interface Article {
   category: string;
   submitted_by: string;
   created_at: string;
+}
+
+export interface ArticleWithUser extends Article {
+  id: number;
+  email: string;
 }
 
 export interface UserResponse {
