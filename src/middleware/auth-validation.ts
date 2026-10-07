@@ -21,9 +21,9 @@ export const loginSchema = z.object({
 
 //ARTICLE SCHEMA
 export const articleSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  body: z.string().min(1, 'Body is required'),
-  category: z.string().min(1, 'Category is required'),
+  title: z.string('Title is required').min(1, 'Title is required'),
+  body: z.string('Body is required').min(1, 'Body is required'),
+  category: z.string('Category is requires').min(1, 'Category is required'),
 });
 
 //Register validation middleware
