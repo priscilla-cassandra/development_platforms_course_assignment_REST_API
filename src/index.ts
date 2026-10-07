@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { pool } from './database';
 import authRoutes from './routes/auth';
 import articleRoutes from './routes/articles';
 
