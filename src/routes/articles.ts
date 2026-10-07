@@ -51,7 +51,7 @@ router.get('/articles', async (req, res) => {
                 articles.submitted_by,
                 articles.created_at
             FROM articles
-            INNER JOIN users ON articles.id = users.id   
+            INNER JOIN users ON articles.submitted_by = users.id   
             ORDER BY articles.created_at DESC
             `);
 
