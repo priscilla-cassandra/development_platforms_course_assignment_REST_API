@@ -19,6 +19,13 @@ export const loginSchema = z.object({
   password: z.string(),
 });
 
+//ARTICLE SCHEMA
+export const articleSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  body: z.string().min(1, 'Body is required'),
+  category: z.string().min(1, 'Category is required'),
+});
+
 //Register validation middleware
 export function validateRegistration(
   req: Request,
@@ -81,5 +88,22 @@ export function authenticateToken(
   }
 
   req.user = { id: payload.userId };
+  next();
+}
+
+//Article validation middleware
+export function validateArticle(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const result = articleSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: result.error.issues.map((issue) => issue.message),
+    });
+  }
   next();
 }
