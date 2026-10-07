@@ -19,7 +19,7 @@ router.post('/register', validateRegistration, async (req, res) => {
       email,
     ]);
 
-    //Check it user already exists
+    //Check if user already exists
     const existingUsers = rows as User[];
 
     if (existingUsers.length > 0) {
