@@ -42,7 +42,7 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 4. Create the database and tables:
 
 ```bash
-mysql -u your_mysql_user -p < schema.sql
+mysql -u your_mysql_user -p < database/schema.sql
 ```
 
 5. Start the server:
@@ -66,20 +66,26 @@ The API runs at `http://localhost:3000`.
 
 ```json
 POST /auth/register
-{ "email": "user@example.com", "password": "password123" }
+{ "email": "user@example.com", "password": "Password123!" }
 ```
+
+Password must be at least 8 characters and include uppercase, lowercase, a number, and a special character
 
 **Login**
 
 ```json
 POST /auth/login
-{ "email": "user@example.com", "password": "password123" }
+{ "email": "user@example.com", "password": "Password123!" }
 ```
 
 Response:
 
 ```json
-{ "token": "<jwt>" }
+{
+  "message": "Login successful",
+  "user": { "id": 1, "email": "user@example.com" },
+  "token": "<jwt>"
+}
 ```
 
 **Create article** (send the token in the header)
