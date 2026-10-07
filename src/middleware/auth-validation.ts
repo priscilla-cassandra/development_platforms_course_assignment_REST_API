@@ -21,9 +21,12 @@ export const loginSchema = z.object({
 
 //ARTICLE SCHEMA
 export const articleSchema = z.object({
-  title: z.string('Title is required').min(1, 'Title is required'),
-  body: z.string('Body is required').min(1, 'Body is required'),
-  category: z.string('Category is requires').min(1, 'Category is required'),
+  title: z.string('Title is required').trim().min(1, 'Title is required'),
+  body: z.string('Body is required').trim().min(1, 'Body is required'),
+  category: z
+    .string('Category is required')
+    .trim()
+    .min(1, 'Category is required'),
 });
 
 //Register validation middleware
@@ -71,7 +74,7 @@ export function authenticateToken(
     });
   }
 
-  if (!authHeader.startsWith('Bearer')) {
+  if (!authHeader.startsWith('Bearer ')) {
     return res.status(401).json({
       error: 'Token must be in format: Bearer <token>',
     });
