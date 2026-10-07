@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { pool } from '../database';
-import type { Article } from '../interfaces';
+import type { Article, ArticleWithUser } from '../interfaces';
 import { authenticateToken } from '../middleware/auth-validation';
 import type { ResultSetHeader } from 'mysql2';
 
@@ -35,6 +35,29 @@ router.post('/articles', authenticateToken, async (req, res) => {
     res.status(500).json({
       error: 'Failed to create article',
     });
+  }
+});
+
+router.get('/articles', async (req, res) => {
+  try {
+    const [rows] = await pool.execute(`
+             SELECT
+                articles.id,
+                articles.title,
+                articles.body,
+                articles.category,
+                articles.submitted_by,
+                articles.created_at
+            FROM articles
+            INNER JOIN users ON articles.id = users.id   
+            ORDER BY articles.created_at DESC
+            `);
+
+    const articles = rows as ArticleWithUser[];
+    res.json(articles);
+  } catch (error) {
+    console.error('Error fetching articles', error);
+    res.status(500).json({ error: 'Failed to fetch articles' });
   }
 });
 
