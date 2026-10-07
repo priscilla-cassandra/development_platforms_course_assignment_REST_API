@@ -7,7 +7,7 @@ import {
   validateRegistration,
   validateLogin,
 } from '../middleware/auth-validation';
-import { verifyToken, generateToken } from '../utils/jwt';
+import { generateToken } from '../utils/jwt';
 
 const router = Router();
 
