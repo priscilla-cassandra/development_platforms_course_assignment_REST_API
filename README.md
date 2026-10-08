@@ -12,8 +12,8 @@ REST API built with Express, TypeScript and MySQL. Features JWT authentication a
 
 ## Prerequisites
 
-- Node.js
-- MySQL (running locally)
+- Node.js 18 or newer (check with `node -v`)
+- MySQL 8 (running locally) and MySQL Workbench
 
 ## Setup
 
@@ -27,9 +27,8 @@ npm install
 
 2. Create your environment file:
 
-```bash
-cp .env.example .env
-```
+- Mac / Linux Git Bash: `cp .env.example .env`
+- Windows: `copy .env.example .env`
 
 Fill in your database credentials in `.env`
 
@@ -41,8 +40,8 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 
 4. Create the database and tables (manual setup):
 
-- Open MySQL workbench
-- Create the database and tables as described in database/schema.sql (in order)
+- Open MySQL workbench and connect to your local server
+- Open `database/schema.sql`
 - Run the whole script
 
 5. Start the server:
