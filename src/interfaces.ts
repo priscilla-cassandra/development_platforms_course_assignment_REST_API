@@ -14,9 +14,13 @@ export interface Article {
   created_at?: string;
 }
 
-export interface ArticleWithUser extends Article {
+export interface ArticleWithUser {
   id: number;
-  email: string;
+  title: string;
+  body: string;
+  category: string;
+  submitted_by: string;
+  created_at?: string;
 }
 
 export interface UserResponse {
