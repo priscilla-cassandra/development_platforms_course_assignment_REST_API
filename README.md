@@ -114,7 +114,7 @@ No auth needed. Response (200):
     "title": "My first article",
     "body": "Article text goes here.",
     "category": "Tech",
-    "submitted_by": 1,
+    "submitted_by": "user@example.com",
     "created_at": "2026-10-07T07:30:00.000Z"
   }
 ]
