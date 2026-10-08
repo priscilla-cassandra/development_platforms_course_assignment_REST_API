@@ -39,11 +39,11 @@ Fill in your database credentials in `.env`
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 
-4. Create the database and tables:
+4. Create the database and tables (manual setup):
 
-```bash
-mysql -u your_mysql_user -p < database/schema.sql
-```
+- Open MySQL workbench
+- Create the database and tables as described in database/schema.sql (in order)
+- Run the whole script
 
 5. Start the server:
 
