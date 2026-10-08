@@ -48,7 +48,7 @@ router.get('/articles', async (req, res) => {
                 articles.title,
                 articles.body,
                 articles.category,
-                articles.submitted_by,
+                users.email AS submitted_by,
                 articles.created_at
             FROM articles
             INNER JOIN users ON articles.submitted_by = users.id   
